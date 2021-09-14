@@ -1,0 +1,7 @@
+{
+  "name": "ctiempo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
