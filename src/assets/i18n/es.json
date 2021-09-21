@@ -1,0 +1,52 @@
+{
+	"MENU": {
+		"home": "Inicio",
+		"language": "Idioma",
+		"import_export": "Importar/Exportar"
+	},
+	"LANGUAGE": {
+		"select": "Seleccionar Idioma",
+		"spanish": "Español",
+		"english": "Ingles",
+		"select_language_ok": "Aceptar",
+		"select_language_cancel": "Cancelar"
+	},
+	"TAB2": {
+		"tasks": "Actividades",
+		"categories": "Categorías",
+		"tasks_text": "actividades",
+		"trackings_text": "seguimientos",
+		"delete_category": "Eliminar Categoría",
+		"delete_message_category": "¿Está seguro de eliminar esta categoría?",
+		"delete_task": "Eliminar Actvidad",
+		"delete_message_task": "¿Está seguro de eliminar esta actividad?",
+		"delete_cancel": "Cancelar",
+		"delete_ok": "Aceptar",
+		"no_tasks": "no hay registros de actividades",
+		"no_categories": "no hay registros de categorías"
+	},
+	"CATEGORY": {
+		"new": "Nueva Categoría",
+		"edit": "Editar Categoría",
+		"close": "Cerrar",
+		"save": "Guardar",
+		"name": "Nombre",
+		"icon": "Ícono",
+		"alert_category": "Validación de Categoría",
+		"alert_message_category": "Complete los campos vacíos",
+		"alert_ok": "Aceptar"
+	},
+	"TASK": {
+		"new": "Nueva Actividad",
+		"edit": "Editar Actividad",
+		"close": "Cerrar",
+		"save": "Guardar",
+		"name": "Nombre",
+		"category": "Categoría",
+		"select_category_ok": "Aceptar",
+		"select_category_cancel": "Cancelar",
+		"alert_task": "Validación de Actividad",
+		"alert_message_task": "Complete los campos vacíos",
+		"alert_ok": "Aceptar"
+	}
+}

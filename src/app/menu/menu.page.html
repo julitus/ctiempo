@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ 'MENU.'+option | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-list *ngIf="option == 'language'">
+    <ion-item>
+      <ion-label>{{ 'LANGUAGE.select' | translate }}</ion-label>
+      <ion-select [(ngModel)]="selectedLanguage" (ionChange)="languageChanged()" cancelText="{{ 'LANGUAGE.select_language_cancel' | translate }}" okText="{{ 'LANGUAGE.select_language_ok' | translate }}">
+        <ion-select-option value="es">{{ 'LANGUAGE.spanish' | translate }}</ion-select-option>
+        <ion-select-option value="en">{{ 'LANGUAGE.english' | translate }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

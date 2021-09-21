@@ -1,0 +1,52 @@
+{
+	"MENU": {
+		"home": "Home",
+		"language": "Language",
+		"import_export": "Import/Export"
+	},
+	"LANGUAGE": {
+		"select": "Select Language",
+		"spanish": "Spanish",
+		"english": "English",
+		"select_language_ok": "Ok",
+		"select_language_cancel": "Cancel"
+	},
+	"TAB2": {
+		"tasks": "Activities",
+		"categories": "Categories",
+		"tasks_text": "activities",
+		"trackings_text": "trackings",
+		"delete_category": "Remove Category",
+		"delete_message_category": "Are you sure to remove this category?",
+		"delete_task": "Remove Activity",
+		"delete_message_task": "Are you sure to remove this activity?",
+		"delete_cancel": "Cancel",
+		"delete_ok": "Ok",
+		"no_tasks": "no task records",
+		"no_categories": "no category records"
+	},
+	"CATEGORY": {
+		"new": "New Category",
+		"edit": "Edit Category",
+		"close": "Close",
+		"save": "Save",
+		"name": "Name",
+		"icon": "Icon",
+		"alert_category": "Category Validation",
+		"alert_message_category": "Fill in the empty fields",
+		"alert_ok": "Ok"
+	},
+	"TASK": {
+		"new": "New Activity",
+		"edit": "Edit Activity",
+		"close": "Close",
+		"save": "Save",
+		"name": "Name",
+		"category": "Category",
+		"select_category_ok": "Ok",
+		"select_category_cancel": "Cancel",
+		"alert_task": "Activity Validation",
+		"alert_message_task": "Fill in the empty fields",
+		"alert_ok": "Ok"
+	}
+}

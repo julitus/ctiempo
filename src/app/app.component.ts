@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateConfigService } from './services/translate-config.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  public appPages = [
+    { title: 'home', url: '/tabs', icon: 'home' },
+    { title: 'language', url: '/menu/language', icon: 'settings' },
+    { title: 'import_export', url: '/menu/import_export', icon: 'cloud-done' },
+  ];
+  
+  constructor(private translateConfigService: TranslateConfigService) {
+    console.log("constructor app component");
+    this.translateConfigService.getDefaultLanguage();
+  }
+
 }

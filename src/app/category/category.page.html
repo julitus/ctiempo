@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{ 'CATEGORY.'+type | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">{{ 'CATEGORY.close' | translate }}</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content-div">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">{{ 'CATEGORY.name' | translate }}</ion-label>
+        <ion-input [(ngModel)]="name"></ion-input>
+      </ion-item>
+      <ion-radio-group [(ngModel)]="icon">
+        <ion-list-header>
+          <ion-label>{{ 'CATEGORY.icon' | translate }}</ion-label>
+        </ion-list-header>
+        <ion-item>
+          <ion-label><ion-icon name="briefcase"></ion-icon></ion-label>
+          <ion-radio slot="start" value="briefcase"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label><ion-icon name="bicycle"></ion-icon></ion-label>
+          <ion-radio slot="start" value="bicycle"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label><ion-icon name="pizza"></ion-icon></ion-label>
+          <ion-radio slot="start" value="pizza"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label><ion-icon name="body"></ion-icon></ion-label>
+          <ion-radio slot="start" value="body"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label><ion-icon name="musical-notes"></ion-icon></ion-label>
+          <ion-radio slot="start" value="musical-notes"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label><ion-icon name="game-controller"></ion-icon></ion-label>
+          <ion-radio slot="start" value="game-controller"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+    <ion-button expand="full" fill="outline" (click)="save()">{{ 'CATEGORY.save' | translate }}</ion-button>
+  </div>
+</ion-content>
