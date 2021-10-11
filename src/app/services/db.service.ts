@@ -25,10 +25,10 @@ export class DbService {
     `CREATE TABLE IF NOT EXISTS trackings (
       id INTEGER PRIMARY KEY, 
       task_id INTEGER, 
-      tracking_date INTEGER, 
-      start_time VARCHAR(16),
-      end_time VARCHAR(16),
-      minutes INTEGER, 
+      tracking_date VARCHAR(16), 
+      tracking_start VARCHAR(16),
+      seconds INTEGER, 
+      tracking_time VARCHAR(16),
       close_tracking INTEGER
     )`
   ];
@@ -57,6 +57,7 @@ export class DbService {
         } else {
           this.getAllCategories();
           this.getAllTasks();
+          this.getTrackings('', this.getToday());
         }
       })
       .catch((error) => console.log(JSON.stringify(error)));
@@ -75,7 +76,7 @@ export class DbService {
       .catch((error) => console.log(JSON.stringify(error)));
     } else {
       let language = localStorage.getItem("chosenLanguage");
-      let inserts_lan = (language == 'en' ? `INSERT INTO categories (name, icon) VALUES ('job', 'briefcase'), ('sport', 'bicycle'), ('hobbie', 'pizza')` : `INSERT INTO categories (name, icon) VALUES ('trabajo', 'briefcase'), ('deporte', 'bicycle'), ('hobbie', 'pizza')`);
+      let inserts_lan = (language == 'en' ? `INSERT INTO categories (name, icon) VALUES ('job', 'briefcase'), ('sport', 'bicycle'), ('hobbie', 'balloon')` : `INSERT INTO categories (name, icon) VALUES ('trabajo', 'briefcase'), ('deporte', 'bicycle'), ('hobbie', 'balloon')`);
 
       this.dbInstance.executeSql(inserts_lan, [])
       .then((res) => {
@@ -84,7 +85,8 @@ export class DbService {
 
         this.getAllCategories();
         this.getAllTasks();
-        //localStorage.setItem("executeIni", "yes");
+        this.getTrackings('', this.getToday());
+        localStorage.setItem("executeIni", "yes");
       })
       .catch((error) => console.log(JSON.stringify(error)));
     }
@@ -122,6 +124,56 @@ export class DbService {
     });
   }
 
+  getTrackings(task_id, tracking_date) {
+    let sqlTrackings = `SELECT trackings.*, tasks.name AS task_name, categories.name AS category_name, categories.icon AS category_icon FROM trackings
+      LEFT JOIN tasks ON trackings.task_id = tasks.id
+      LEFT JOIN categories ON tasks.category_id = categories.id
+      WHERE tracking_date = '${tracking_date}'
+      ORDER BY close_tracking DESC`;
+    if (task_id != '') {
+      sqlTrackings = `SELECT trackings.*, tasks.name AS task_name, categories.name AS category_name, categories.icon AS category_icon FROM trackings
+      LEFT JOIN tasks ON trackings.task_id = tasks.id
+      LEFT JOIN categories ON tasks.category_id = categories.id
+      WHERE trackings.tracking_date = '${tracking_date}'
+      AND trackings.task_id = ${task_id}
+      ORDER BY close_tracking DESC`;
+    }
+
+    console.log(sqlTrackings);
+
+    return this.dbInstance.executeSql(`${sqlTrackings}`, []).then((res) => {
+      this.TRACKINGS = [];
+      if (res.rows.length > 0) {
+        for (let i = 0; i < res.rows.length; i++) {
+          this.TRACKINGS.push(res.rows.item(i));
+        }
+        console.log(this.TRACKINGS);
+        return this.TRACKINGS;
+      }
+    },(e) => {
+      console.log(JSON.stringify(e));
+    });
+  }
+
+  getDataToChart(start, end): Promise<Array <any> > {
+    let sqlDataToChar = `SELECT trackings.*, tasks.name AS task_name, tasks.category_id AS category_id, categories.name AS category_name, categories.icon AS category_icon FROM trackings
+      LEFT JOIN tasks ON trackings.task_id = tasks.id
+      LEFT JOIN categories ON tasks.category_id = categories.id
+      WHERE trackings.close_tracking >= '${start}'
+      AND trackings.close_tracking <= '${end}'`;
+
+    return this.dbInstance.executeSql(`${sqlDataToChar}`, []).then((res) => {
+      let ndata = [];
+      if (res.rows.length > 0) {
+        for (let i = 0; i < res.rows.length; i++) {
+          ndata.push(res.rows.item(i));
+        }
+        console.log(ndata);
+      }
+      return ndata;
+    });
+  }
+
   addCategory(name, icon) {
     this.dbInstance.executeSql(`
       INSERT INTO categories (name, icon) VALUES ('${name}', '${icon}')`, [])
@@ -136,9 +188,64 @@ export class DbService {
   addTask(name, category_id) {
     this.dbInstance.executeSql(`
       INSERT INTO tasks (name, category_id) VALUES ('${name}', '${category_id}')`, [])
-    .then(() => {
+    .then((row) => {
       console.log("success add task");
-      this.getAllTasks();
+      console.log('Appointment inserido com sucesso. Id:', row);
+      this.dbInstance.executeSql(`
+        UPDATE categories SET number_tasks = number_tasks + 1 WHERE id = ${category_id}`, [])
+      .then(() => {
+        this.getAllTasks();
+        this.getAllCategories();
+      }, (e) => {
+        console.log(JSON.stringify(e.err));
+      });
+    }, (e) => {
+      console.log(JSON.stringify(e.err));
+    });
+  }
+
+  addTracking(task_id, tracking_date, tracking_start, seconds, close_tracking, tracking_time) {
+    this.dbInstance.executeSql(`
+      INSERT INTO trackings (task_id, tracking_date, tracking_start, seconds, close_tracking, tracking_time) 
+      VALUES ('${task_id}', '${tracking_date}', '${tracking_start}', '${seconds}', '${close_tracking}', '${tracking_time}')`, [])
+    .then(() => {
+      console.log("success add tracking");
+      this.dbInstance.executeSql(`
+        UPDATE tasks SET number_trackings = number_trackings + 1 WHERE id = ${task_id}`, [])
+      .then(() => {
+        this.getTrackings('', tracking_date);
+        this.getAllTasks();
+      }, (e) => {
+        console.log(JSON.stringify(e.err));
+      });
+    }, (e) => {
+      console.log(JSON.stringify(e.err));
+    });
+  }
+
+  addTrackingAndTask(name, category_id, tracking_date, tracking_start, seconds, close_tracking, tracking_time) {
+    this.dbInstance.executeSql(`
+      INSERT INTO tasks (name, category_id, number_trackings) VALUES ('${name}', '${category_id}', '1')`, [])
+    .then((row) => {
+      console.log("success add task");
+      console.log('task Id:', row.insertId);
+      this.dbInstance.executeSql(`
+        UPDATE categories SET number_tasks = number_tasks + 1 WHERE id = ${category_id}`, [])
+      .then(() => {
+        this.dbInstance.executeSql(`
+          INSERT INTO trackings (task_id, tracking_date, tracking_start, seconds, close_tracking, tracking_time) 
+          VALUES ('${row.insertId}', '${tracking_date}', '${tracking_start}', '${seconds}', '${close_tracking}', '${tracking_time}')`, [])
+        .then(() => {
+          console.log("success add tracking");
+          this.getTrackings('', tracking_date);
+          this.getAllTasks();
+          this.getAllCategories();
+        }, (e) => {
+          console.log(JSON.stringify(e.err));
+        });
+      }, (e) => {
+        console.log(JSON.stringify(e.err));
+      });
     }, (e) => {
       console.log(JSON.stringify(e.err));
     });
@@ -169,10 +276,22 @@ export class DbService {
     });
   }
 
-  deleteRow(table, id) {
+  updateTracking(id, seconds, tracking_time, tracking_date) {
+    let data = [seconds, tracking_time];
+    return this.dbInstance.executeSql(
+      `UPDATE trackings SET seconds = ?, tracking_time = ? WHERE id = ${id}`, data)
+    .then(() => {
+      console.log("success edit tracking");
+      this.getTrackings('', tracking_date);
+    }, (e) => {
+      console.log(JSON.stringify(e.err));
+    });
+  }
+
+  deleteRow(table, id, other_id) {
     this.dbInstance.executeSql(`
       DELETE FROM ${table} WHERE id = ${id}`, [])
-    .then(() => {
+    .then((res) => {
       console.log("row deleted!");
       if (table == 'categories') {
         this.dbInstance.executeSql(
@@ -188,12 +307,25 @@ export class DbService {
           `DELETE FROM trackings WHERE task_id = ${id}`, [])
         .then(() => {
           console.log("deleted all trackings with task deleted");
-          this.refreshList(table);
+          this.dbInstance.executeSql(`
+            UPDATE categories SET number_tasks = number_tasks - 1 WHERE id = ${other_id}`, [])
+          .then(() => {
+            this.refreshList(table);
+          }, (e) => {
+            console.log(JSON.stringify(e.err));
+          });
         }, (e) => {
           console.log(JSON.stringify(e.err));
         });
       } else {
-        this.refreshList(table);
+        this.dbInstance.executeSql(`
+          UPDATE tasks SET number_trackings = number_trackings - 1 WHERE id = ${other_id}`, [])
+        .then(() => {
+          this.refreshList(table);
+        }, (e) => {
+          console.log(JSON.stringify(e.err));
+        });
+        //this.refreshList(table);
       }
     })
     .catch(e => {
@@ -207,9 +339,17 @@ export class DbService {
       this.getAllTasks();
     } else if (table == 'tasks') {
       this.getAllTasks();
+      this.getAllCategories();
+      this.getTrackings('', this.getToday());
     } else {
-
+      this.getTrackings('', this.getToday());
+      this.getAllTasks();
     }
+  }
+
+  getToday() {
+    let today = new Date();
+    return ("0" + today.getDate()).slice(-2) + "-" + ("0"+(today.getMonth()+1)).slice(-2) + "-" + today.getFullYear();
   }
 
 }

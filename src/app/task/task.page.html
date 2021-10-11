@@ -20,8 +20,8 @@
           <ion-select-option *ngFor="let category of dbService.CATEGORIES" value="{{ category.id }}">{{ category.name }}</ion-select-option>
         </ion-select>
       </ion-item>
+      <ion-button expand="full" fill="outline" (click)="save()">{{ 'TASK.save' | translate }}</ion-button>
     </ion-list>
-    <ion-button expand="full" fill="outline" (click)="save()">{{ 'TASK.save' | translate }}</ion-button>
   </div>
 
 </ion-content>

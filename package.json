@@ -30,6 +30,7 @@
     "@ionic/angular": "^5.5.2",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
+    "chart.js": "^3.5.1",
     "cordova-sqlite-storage": "^6.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
@@ -90,8 +91,8 @@
       "cordova-sqlite-storage": {}
     },
     "platforms": [
-      "android",
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }

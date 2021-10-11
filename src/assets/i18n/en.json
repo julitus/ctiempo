@@ -11,6 +11,15 @@
 		"select_language_ok": "Ok",
 		"select_language_cancel": "Cancel"
 	},
+	"TAB1": {
+		"no_trackings": "no tracking records",
+		"edit_tracking": "Edit Tracking",
+		"edit_message_tracking": "Modify the time according to the format hh:mm:ss",
+		"delete_tracking": "Remove Tracking",
+		"delete_message_tracking": "Are you sure to remove this tracking?",
+		"delete_cancel": "Cancel",
+		"delete_ok": "Ok"
+	},
 	"TAB2": {
 		"tasks": "Activities",
 		"categories": "Categories",
@@ -24,6 +33,15 @@
 		"delete_ok": "Ok",
 		"no_tasks": "no task records",
 		"no_categories": "no category records"
+	},
+	"TAB3": {
+		"date_start": "Select Start Date",
+		"date_end": "Select End Date",
+		"select_date_done": "Done",
+		"select_date_cancel": "Cancel",
+		"search": "Search",
+		"bar_title": "Categories x Time (h)",
+		"bar_horizontal_title": "Activities x Time (h)"
 	},
 	"CATEGORY": {
 		"new": "New Category",
@@ -48,5 +66,40 @@
 		"alert_task": "Activity Validation",
 		"alert_message_task": "Fill in the empty fields",
 		"alert_ok": "Ok"
+	},
+	"TRACKING": {
+		"title": "Save Tracking",
+		"close": "Close",
+		"choose": "Choose",
+		"create": "New",
+		"no_tasks": "no task records",
+		"choose_task": "Choose Activity",
+		"choose_message_task": "Are you sure to choose this activity?",
+		"choose_cancel": "Cancel",
+		"choose_ok": "Ok",
+		"save": "Save",
+		"name": "Name",
+		"category": "Category",
+		"select_category_ok": "Ok",
+		"select_category_cancel": "Cancel",
+		"create_task": "New Activity",
+		"create_message_task": "Are you sure to create this activity?",
+		"create_cancel": "Cancel",
+		"create_ok": "Ok",
+		"alert_task": "Activity Validation",
+		"alert_message_task": "Fill in the empty fields",
+		"alert_ok": "Ok"
+	},
+	"SEARCH": {
+		"title": "Tracking Search",
+		"close": "Close",
+		"date": "Select Date",
+		"task": "Select Activity",
+		"select_task_ok": "Ok",
+		"select_task_cancel": "Cancel",
+		"select_date_done": "Done",
+		"select_date_cancel": "Cancel",
+		"all_tasks": "All the activities",
+		"search": "Search"
 	}
 }

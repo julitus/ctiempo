@@ -1,3 +1,20 @@
 ion-menu-button {
   color: var(--ion-color-primary);
 }
+
+.toolbar-timer {
+  ion-title {
+    font-size: 32px;
+  }
+  span {
+    position: absolute;
+    bottom: 2px;
+    font-size: 11px;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.content-div small {
+  font-size: 60%;
+}

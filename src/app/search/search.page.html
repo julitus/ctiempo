@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{ 'SEARCH.title' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">{{ 'SEARCH.close' | translate }}</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content-div">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">{{ 'SEARCH.date' | translate }}</ion-label>
+        <ion-datetime displayFormat="DD-MM-YYYY" [(ngModel)]="tracking_date" cancelText="{{ 'SEARCH.select_date_cancel' | translate }}" doneText="{{ 'SEARCH.select_date_done' | translate }}"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">{{ 'SEARCH.task' | translate }}</ion-label>
+        <ion-select [(ngModel)]="task_id" cancelText="{{ 'SEARCH.select_task_cancel' | translate }}" okText="{{ 'SEARCH.select_task_ok' | translate }}">
+          <ion-select-option value="">-- {{ 'SEARCH.all_tasks' | translate }} --</ion-select-option>
+          <ion-select-option *ngFor="let task of dbService.TASKS" value="{{ task.id }}">{{ task.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-button expand="full" fill="outline" (click)="search()">{{ 'SEARCH.search' | translate }}</ion-button>
+    </ion-list>
+  </div>
+
+</ion-content>

@@ -11,6 +11,15 @@
 		"select_language_ok": "Aceptar",
 		"select_language_cancel": "Cancelar"
 	},
+	"TAB1": {
+		"no_trackings": "no hay registro de seguimientos",
+		"edit_tracking": "Editar Seguimiento",
+		"edit_message_tracking": "Modifique el tiempo segun el formato hh:mm:ss",
+		"delete_tracking": "Eliminar Seguimiento",
+		"delete_message_tracking": "¿Está seguro de eliminar este seguimiento?",
+		"delete_cancel": "Cancelar",
+		"delete_ok": "Aceptar"
+	},
 	"TAB2": {
 		"tasks": "Actividades",
 		"categories": "Categorías",
@@ -22,8 +31,17 @@
 		"delete_message_task": "¿Está seguro de eliminar esta actividad?",
 		"delete_cancel": "Cancelar",
 		"delete_ok": "Aceptar",
-		"no_tasks": "no hay registros de actividades",
-		"no_categories": "no hay registros de categorías"
+		"no_tasks": "no hay registro de actividades",
+		"no_categories": "no hay registro de categorías"
+	},
+	"TAB3": {
+		"date_start": "Seleccionar Fecha Inicio",
+		"date_end": "Seleccionar Fecha Fin",
+		"select_date_done": "Hecho",
+		"select_date_cancel": "Cancelar",
+		"search": "Buscar",
+		"bar_title": "Categorías x Tiempo (h)",
+		"bar_horizontal_title": "Actividades x Tiempo (h)"
 	},
 	"CATEGORY": {
 		"new": "Nueva Categoría",
@@ -48,5 +66,40 @@
 		"alert_task": "Validación de Actividad",
 		"alert_message_task": "Complete los campos vacíos",
 		"alert_ok": "Aceptar"
+	},
+	"TRACKING": {
+		"title": "Guardar Seguimiento",
+		"close": "Cerrar",
+		"choose": "Elegir",
+		"create": "Crear",
+		"no_tasks": "no hay registro de actividades",
+		"choose_task": "Escoger Activitidad",
+		"choose_message_task": "¿Está seguro de escoger esta actividad?",
+		"choose_cancel": "Cancelar",
+		"choose_ok": "Aceptar",
+		"save": "Guardar",
+		"name": "Nombre",
+		"category": "Categoría",
+		"select_category_ok": "Aceptar",
+		"select_category_cancel": "Cancelar",
+		"create_task": "Crear Actividad",
+		"create_message_task": "¿Está seguro de crear esta actividad?",
+		"create_cancel": "Cancelar",
+		"create_ok": "Aceptar",
+		"alert_task": "Validación de Actividad",
+		"alert_message_task": "Complete los campos vacíos",
+		"alert_ok": "Aceptar"
+	},
+	"SEARCH": {
+		"title": "Búsqueda de Seguimiento",
+		"close": "Cerrar",
+		"date": "Seleccionar Fecha",
+		"task": "Seleccionar Actividad",
+		"select_task_ok": "Aceptar",
+		"select_task_cancel": "Cancelar",
+		"select_date_done": "Hecho",
+		"select_date_cancel": "Cancelar",
+		"all_tasks": "Todas las actividades",
+		"search": "Buscar"
 	}
 }

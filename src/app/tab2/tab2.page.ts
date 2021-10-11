@@ -125,7 +125,7 @@ export class Tab2Page {
         }, {
           text: this.translate.instant('TAB2.delete_ok'),
           handler: () => {
-            this.dbService.deleteRow('categories', id);
+            this.dbService.deleteRow('categories', id, 0);
           }
         }
       ]
@@ -135,7 +135,7 @@ export class Tab2Page {
     
   }
 
-  async removeTask(id) {
+  async removeTask(id, category_id) {
     const alert = await this.alertController.create({
       header: this.translate.instant('TAB2.delete_task'),
       message: this.translate.instant('TAB2.delete_message_task'),
@@ -150,7 +150,7 @@ export class Tab2Page {
         }, {
           text: this.translate.instant('TAB2.delete_ok'),
           handler: () => {
-            this.dbService.deleteRow('tasks', id);
+            this.dbService.deleteRow('tasks', id, category_id);
           }
         }
       ]

@@ -3,11 +3,66 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Tab 1</ion-title>
+    <ion-title></ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="toolbar-timer" color="success" (click)="start()" (dblclick)="clean()" *ngIf="!running">
+    <ion-title class="ion-text-center">{{ time }}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="toolbar-timer" color="danger" (click)="stop()" *ngIf="running">
+    <ion-title class="ion-text-center">{{ time }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-fab vertical="top" horizontal="start" edge slot="fixed" *ngIf="!running && time != blankTime">
+    <ion-fab-button>
+      <ion-icon name="chevron-down"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list>
+      <ion-fab-button color="secondary" (click)="reset()">
+        <ion-icon name="refresh"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="secondary" (click)="save()">
+        <ion-icon name="save"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <ion-fab vertical="top" horizontal="end" edge slot="fixed" (click)="search()">
+    <ion-fab-button>
+      <ion-icon name="search"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div class="content-div">
+    <ion-list>
+      <div *ngIf="dbService.TRACKINGS && dbService.TRACKINGS.length > 0">
+        <ion-item *ngFor="let track of dbService.TRACKINGS">
+          <ion-icon slot="start" name="{{ track.category_icon }}"></ion-icon>
+          <ion-label (click)="editTracking(track)">
+            <h2>
+              <small>{{ track.tracking_date }}, {{ track.tracking_start }}</small>&nbsp;
+              <strong>{{ track.task_name }}</strong>
+            </h2>
+            <p>
+              <ion-chip color="primary">
+                <ion-label>{{ track.tracking_time }}</ion-label>
+              </ion-chip>
+              <ion-chip color="success">
+                <ion-label>{{ track.category_name ? track.category_name : '-' }}</ion-label>
+              </ion-chip>
+            </p>
+          </ion-label>
+          <ion-icon color="danger" slot="end" name="trash" (click)="removeTracking(track.id, track.task_id)"></ion-icon>
+        </ion-item>
+      </div>
+      <div *ngIf="dbService.TRACKINGS && dbService.TRACKINGS.length <= 0">
+        <ion-item>
+          <ion-label>{{ 'TAB1.no_trackings' | translate }}</ion-label>
+        </ion-item>
+      </div>
+    </ion-list>
+  </div>
+
 </ion-content>

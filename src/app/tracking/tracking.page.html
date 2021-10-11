@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{ 'TRACKING.title' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">{{ 'TRACKING.close' | translate }}</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="selectSegment">
+      <ion-segment-button value="choose">
+        <ion-label>{{ 'TRACKING.choose' | translate }}</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="create">
+        <ion-label>{{ 'TRACKING.create' | translate }}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div [ngSwitch]="selectSegment" class="content-div">
+    <ion-list *ngSwitchCase="'choose'">
+      <div *ngIf="dbService.TASKS && dbService.TASKS.length > 0">
+        <ion-item *ngFor="let task of dbService.TASKS">
+          <ion-icon slot="start" name="{{ task.category_icon }}"></ion-icon>
+          <ion-label (click)="chooseTask(task.id)">
+            <h2><strong>{{ task.name }}</strong></h2>
+            <p>{{ task.number_trackings}} {{ 'TAB2.trackings_text' | translate }}
+              <ion-chip color="success">
+                <ion-label>{{ task.category_name ? task.category_name : '-' }}</ion-label>
+              </ion-chip>
+            </p>
+          </ion-label>
+        </ion-item>
+      </div>
+      <div *ngIf="dbService.TASKS && dbService.TASKS.length <= 0">
+        <ion-item>
+          <ion-label>{{ 'TRACKING.no_tasks' | translate }}</ion-label>
+        </ion-item>
+      </div>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'create'">
+      <ion-item>
+        <ion-label position="floating">{{ 'TRACKING.name' | translate }}</ion-label>
+        <ion-input [(ngModel)]="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">{{ 'TRACKING.category' | translate }}</ion-label>
+        <ion-select [(ngModel)]="category_id" cancelText="{{ 'TRACKING.select_category_cancel' | translate }}" okText="{{ 'TRACKING.select_category_ok' | translate }}">
+          <ion-select-option *ngFor="let category of dbService.CATEGORIES" value="{{ category.id }}">{{ category.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-button expand="full" fill="outline" (click)="save()">{{ 'TRACKING.save' | translate }}</ion-button>
+    </ion-list>
+  </div>
+
+</ion-content>

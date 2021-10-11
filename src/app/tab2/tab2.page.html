@@ -19,9 +19,15 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+  <ion-fab vertical="top" horizontal="start" edge slot="fixed" *ngIf="selectSegment == 'tasks'" (click)="add()">
     <ion-fab-button>
-      <ion-icon name="add" (click)="add()"></ion-icon>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="top" horizontal="end" edge slot="fixed" *ngIf="selectSegment == 'categories'" (click)="add()">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
   
@@ -32,9 +38,13 @@
           <ion-icon slot="start" name="{{ task.category_icon }}"></ion-icon>
           <ion-label (click)="editTask(task)">
             <h2><strong>{{ task.name }}</strong></h2>
-            <p>{{ task.number_trackings}} {{ 'TAB2.trackings_text' | translate }} ({{ task.category_name ? task.category_name : '-' }})</p>
+            <p>{{ task.number_trackings}} {{ 'TAB2.trackings_text' | translate }}
+              <ion-chip color="success">
+                <ion-label>{{ task.category_name ? task.category_name : '-' }}</ion-label>
+              </ion-chip>
+            </p>
           </ion-label>
-          <ion-icon color="danger" slot="end" name="trash" (click)="removeTask(task.id)"></ion-icon>
+          <ion-icon color="danger" slot="end" name="trash" (click)="removeTask(task.id, task.category_id)"></ion-icon>
         </ion-item>
       </div>
       <div *ngIf="dbService.TASKS && dbService.TASKS.length <= 0">

@@ -17,6 +17,14 @@ const routes: Routes = [
   {
     path: 'task',
     loadChildren: () => import('./task/task.module').then( m => m.TaskPageModule)
+  },
+  {
+    path: 'tracking',
+    loadChildren: () => import('./tracking/tracking.module').then( m => m.TrackingPageModule)
+  },
+  {
+    path: 'search',
+    loadChildren: () => import('./search/search.module').then( m => m.SearchPageModule)
   }
 ];
 @NgModule({
