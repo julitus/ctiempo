@@ -29,8 +29,12 @@ ion-menu.md ion-list#inbox-list {
 ion-menu.md ion-list#inbox-list ion-list-header {
   font-size: 22px;
   font-weight: 600;
-
   min-height: 20px;
+  ion-img  {
+    width: 80%;
+    display:block;
+    margin:auto;
+  }
 }
 
 ion-menu.md ion-list#labels-list ion-list-header {
